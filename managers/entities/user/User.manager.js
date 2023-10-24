@@ -1,5 +1,4 @@
 const Roles = require("../../../config/constants/Roles");
-const UserModel = require("./User.mongoModel");
 module.exports = class User {
   constructor({
     utils,
@@ -19,6 +18,12 @@ module.exports = class User {
     this.usersCollection = "users";
     this.userExposed = ["createUser"];
     this.httpExposed = ["createUser", "login"];
+
+    this._preload();
+  }
+
+  async _preload() {
+    await this._upsertSuperAdmin();
   }
 
   async login({ password, __userRegistered }) {
@@ -69,7 +74,7 @@ module.exports = class User {
     if (result) return { errors: result };
 
     // Creation Logic
-    await UserModel.create(user);
+    await this.mongomodels.User.create(user);
     let longToken = this.tokenManager.genLongToken({
       userId: user._id,
       user,
@@ -80,5 +85,22 @@ module.exports = class User {
       user: { username, email },
       longToken,
     };
+  }
+
+  async _upsertSuperAdmin() {
+    await this.mongomodels.User.updateOne(
+      {
+        email: this.config.dotEnv.SUPER_ADMIN_EMAIL,
+      },
+      {
+        $set: {
+          password: this.config.dotEnv.SUPER_ADMIN_PASSWORD,
+          role: Roles.SUPER_ADMIN,
+        },
+      },
+      {
+        upsert: true,
+      }
+    );
   }
 };
