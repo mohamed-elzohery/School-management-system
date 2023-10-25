@@ -35,11 +35,11 @@ module.exports = class School {
     if (result) return { errors: result };
 
     // Creation Logic
-    await this.mongomodels.School.create(school);
+    const createdSchool = await this.mongomodels.School.create(school);
 
     // Response
     return {
-      school,
+      school: createdSchool,
     };
   }
 
@@ -87,7 +87,6 @@ module.exports = class School {
   }
 
   async getSchoolById({ __superAdmin, __schoolByID }) {
-    delete __schoolByID.password;
     return {
       school: __schoolByID,
     };

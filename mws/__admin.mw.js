@@ -4,7 +4,6 @@ const User = require("../managers/entities/user/User.mongoModel");
 module.exports = ({ meta, config, managers }) => {
   return async ({ req, res, next }) => {
     let token;
-
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith("Bearer ")
@@ -19,7 +18,7 @@ module.exports = ({ meta, config, managers }) => {
       });
     }
     let decodedToken = managers.token.verifyLongToken({
-      token: req.headers.token,
+      token,
     });
     if (!decodedToken) {
       return managers.responseDispatcher.dispatch(res, {
@@ -28,6 +27,7 @@ module.exports = ({ meta, config, managers }) => {
         errors: "unauthorized operation",
       });
     }
+    console.log(decodedToken);
     let user = await User.findById(decodedToken.userId);
     if (!user)
       return managers.responseDispatcher.dispatch(res, {
@@ -41,6 +41,7 @@ module.exports = ({ meta, config, managers }) => {
         code: 401,
         errors: "unauthorized operation",
       });
+    req.user = user;
     next(user);
   };
 };

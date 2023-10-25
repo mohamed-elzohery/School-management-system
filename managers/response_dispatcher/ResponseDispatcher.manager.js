@@ -3,7 +3,6 @@ module.exports = class ResponseDispatcher {
     this.key = "responseDispatcher";
   }
   dispatch(res, { ok, data, code, errors, message, msg }) {
-    console.log(ok);
     let statusCode = code ? code : ok == true ? 200 : 400;
     return res.status(statusCode).send({
       ok: ok || false,

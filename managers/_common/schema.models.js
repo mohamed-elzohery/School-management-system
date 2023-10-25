@@ -6,6 +6,12 @@ module.exports = {
     path: "_id",
     length: { min: 1, max: 50 },
   },
+  status: {
+    path: "status",
+    type: "string",
+    label: "status",
+    oneOf: ["available", "occupied", "under-maintenance"],
+  },
   username: {
     path: "username",
     type: "string",
@@ -25,6 +31,7 @@ module.exports = {
   schoolID: {
     path: "schoolID",
   },
+
   role: {
     path: "role",
     type: "string",

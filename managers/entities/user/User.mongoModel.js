@@ -8,8 +8,8 @@ const userSchema = new Schema({
   password: String,
   username: String,
   role: {
-    type: "string",
-    defaut: Roles.SCHOOL_ADMIN,
+    type: String,
+    default: Roles.SCHOOL_ADMIN,
   },
   schoolID: {
     type: Schema.ObjectId,

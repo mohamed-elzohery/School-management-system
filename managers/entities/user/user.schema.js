@@ -18,6 +18,7 @@ module.exports = {
     },
     {
       model: "schoolID",
+      required: true,
     },
   ],
   updateUser: [
@@ -32,7 +33,12 @@ module.exports = {
       model: "password",
     },
     {
+      model: "role",
+      required: false,
+    },
+    {
       model: "schoolID",
+      required: true,
     },
   ],
   login: [

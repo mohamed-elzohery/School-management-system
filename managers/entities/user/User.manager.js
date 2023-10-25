@@ -56,9 +56,9 @@ module.exports = class User {
       userId: __userRegistered._id,
       user: __userRegistered,
     });
-    delete __userRegistered.password;
+    const { email, role, _id, schoolID } = __userRegistered;
     return {
-      user: __userRegistered,
+      user: { email, role, _id, schoolID },
       token,
     };
   }

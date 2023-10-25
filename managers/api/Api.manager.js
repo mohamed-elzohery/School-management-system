@@ -54,7 +54,6 @@ module.exports = class ApiHandler {
             return i;
           });
           /** building middlewares stack */
-
           params.forEach((param) => {
             if (!this.mwsStack[`${mk}.${fnName}`]) {
               this.mwsStack[`${mk}.${fnName}`] = [];
@@ -64,6 +63,7 @@ module.exports = class ApiHandler {
               // mws are executed in the same order they existed
               /** check if middleware exists */
               // console.log(this.mwsRepo);
+
               if (!this.mwsRepo[param]) {
                 throw Error(`Unable to find middleware ${param}`);
               } else {
