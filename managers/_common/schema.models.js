@@ -24,7 +24,6 @@ module.exports = {
   },
   schoolID: {
     path: "schoolID",
-    type: "string",
   },
   role: {
     path: "role",
@@ -50,6 +49,15 @@ module.exports = {
     path: "desc",
     type: "string",
     length: { min: 3, max: 2000 },
+  },
+  description: {
+    path: "description",
+    type: "string",
+    length: { max: 2000 },
+  },
+  address: {
+    path: "address",
+    type: "string",
   },
   url: {
     path: "url",

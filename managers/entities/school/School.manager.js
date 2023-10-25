@@ -23,9 +23,11 @@ module.exports = class School {
     ];
   }
 
-  async createSchool({ title, __superAdmin }) {
+  async createSchool({ title, __superAdmin, description, address }) {
     const school = {
       title,
+      address,
+      description,
     };
 
     // Data validation
@@ -49,7 +51,13 @@ module.exports = class School {
     };
   }
 
-  async updateSchool({ title, __superAdmin, __schoolByID }) {
+  async updateSchool({
+    title,
+    __superAdmin,
+    __schoolByID,
+    description,
+    address,
+  }) {
     // Data validation
     let result = await this.validators.school.updateSchool(__schoolByID);
     if (result) return { errors: result };
@@ -62,6 +70,8 @@ module.exports = class School {
       {
         $set: {
           title,
+          description,
+          address,
         },
       },
       {

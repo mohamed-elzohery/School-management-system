@@ -56,8 +56,9 @@ module.exports = class User {
       userId: __userRegistered._id,
       user: __userRegistered,
     });
-
+    delete __userRegistered.password;
     return {
+      user: __userRegistered,
       token,
     };
   }
