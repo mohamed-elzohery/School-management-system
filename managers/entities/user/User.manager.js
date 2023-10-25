@@ -17,7 +17,14 @@ module.exports = class User {
     this.tokenManager = managers.token;
     this.usersCollection = "users";
     this.userExposed = ["createUser"];
-    this.httpExposed = ["createUser", "login"];
+    this.httpExposed = [
+      "createUser",
+      "login",
+      "delete=deleteUser",
+      "put=updateUser",
+      "get=getUserById",
+      "get=getAllUsers",
+    ];
 
     this._preload();
   }
@@ -54,7 +61,14 @@ module.exports = class User {
     };
   }
 
-  async createUser({ username, email, password, __userRegistered }) {
+  async createUser({
+    username,
+    email,
+    password,
+    __userRegistered,
+    school,
+    __superAdmin,
+  }) {
     if (__userRegistered.email)
       return {
         errors: [
@@ -67,7 +81,13 @@ module.exports = class User {
         ],
       };
 
-    const user = { username, email, password, role: Roles.SCHOOL_ADMIN };
+    const user = {
+      username,
+      email,
+      password,
+      role: Roles.SCHOOL_ADMIN,
+      school,
+    };
 
     // Data validation
     let result = await this.validators.user.createUser(user);
@@ -87,6 +107,74 @@ module.exports = class User {
     };
   }
 
+  async deleteUser({ __superAdmin, __userByID }) {
+    await this.mongomodels.User.deleteOne(__userByID);
+    // Response
+    return {
+      message: "user is deleted successfully",
+    };
+  }
+
+  async updateUser({
+    username,
+    email,
+    password,
+    school,
+    __superAdmin,
+    __userRegistered,
+    __userByID,
+  }) {
+    if (__userRegistered.email)
+      return {
+        errors: [
+          {
+            message: "this email is taken by another user",
+            path: "email",
+            label: "email",
+            log: "_duplicate",
+          },
+        ],
+      };
+
+    // Data validation
+    let result = await this.validators.user.updateUser(__userByID);
+    if (result) return { errors: result };
+
+    // Update Logic
+    await this.mongomodels.User.updateOne(
+      {
+        ...__userByID,
+      },
+      {
+        $set: {
+          password,
+          email,
+          username,
+          school,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+    // Response
+    return "user is updated successfully";
+  }
+
+  async getAllUsers({ __superAdmin }) {
+    return this.mongomodels.User.find(
+      { role: Roles.SCHOOL_ADMIN },
+      { password: 0 }
+    );
+  }
+
+  async getUserById({ id, __superAdmin, __userByID }) {
+    delete __userByID.password;
+    return {
+      user: __userByID,
+    };
+  }
+
   async _upsertSuperAdmin() {
     await this.mongomodels.User.updateOne(
       {
@@ -103,4 +191,8 @@ module.exports = class User {
       }
     );
   }
+
+  //   _handleUserNotFound(user = null){
+  //     if(!user) return { errors: [{ message: "user not found" }] };
+  //   }
 };

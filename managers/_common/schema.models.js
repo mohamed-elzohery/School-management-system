@@ -2,9 +2,8 @@ const Roles = require("../../config/constants/Roles");
 const emojis = require("../../public/emojis.data.json");
 
 module.exports = {
-  id: {
-    path: "id",
-    type: "string",
+  _id: {
+    path: "_id",
     length: { min: 1, max: 50 },
   },
   username: {
@@ -22,6 +21,10 @@ module.exports = {
     path: "email",
     type: "string",
     length: { min: 3, max: 100 },
+  },
+  school: {
+    path: "school",
+    type: "string",
   },
   role: {
     path: "role",
