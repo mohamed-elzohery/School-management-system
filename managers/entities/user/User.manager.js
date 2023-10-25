@@ -1,4 +1,5 @@
 const Roles = require("../../../config/constants/Roles");
+
 module.exports = class User {
   constructor({
     utils,
@@ -66,7 +67,7 @@ module.exports = class User {
     email,
     password,
     __userRegistered,
-    school,
+    schoolID,
     __superAdmin,
   }) {
     if (__userRegistered.email)
@@ -85,8 +86,7 @@ module.exports = class User {
       username,
       email,
       password,
-      role: Roles.SCHOOL_ADMIN,
-      school,
+      schoolID,
     };
 
     // Data validation
@@ -119,7 +119,7 @@ module.exports = class User {
     username,
     email,
     password,
-    school,
+    schoolID,
     __superAdmin,
     __userRegistered,
     __userByID,
@@ -150,7 +150,7 @@ module.exports = class User {
           password,
           email,
           username,
-          school,
+          schoolID,
         },
       },
       {
@@ -163,12 +163,12 @@ module.exports = class User {
 
   async getAllUsers({ __superAdmin }) {
     return this.mongomodels.User.find(
-      { role: Roles.SCHOOL_ADMIN },
+      { role: Roles.schoolID_ADMIN },
       { password: 0 }
     );
   }
 
-  async getUserById({ id, __superAdmin, __userByID }) {
+  async getUserById({ __superAdmin, __userByID }) {
     delete __userByID.password;
     return {
       user: __userByID,
@@ -191,8 +191,4 @@ module.exports = class User {
       }
     );
   }
-
-  //   _handleUserNotFound(user = null){
-  //     if(!user) return { errors: [{ message: "user not found" }] };
-  //   }
 };

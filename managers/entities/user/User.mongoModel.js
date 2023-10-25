@@ -1,12 +1,20 @@
 const { Schema, model } = require("mongoose");
 const bcrypt = require("bcrypt");
+const Roles = require("../../../config/constants/Roles");
 
 // Schema is emptied as we delegated validation to pineapple
 const userSchema = new Schema({
   email: String,
   password: String,
   username: String,
-  role: String,
+  role: {
+    type: "string",
+    defaut: Roles.SCHOOL_ADMIN,
+  },
+  schoolID: {
+    type: Schema.ObjectId,
+    ref: "School",
+  },
 });
 
 userSchema.pre("save", async function (next) {

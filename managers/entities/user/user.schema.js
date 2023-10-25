@@ -14,10 +14,10 @@ module.exports = {
     },
     {
       model: "role",
-      required: true,
+      required: false,
     },
     {
-      model: "school",
+      model: "schoolID",
     },
   ],
   updateUser: [
@@ -32,7 +32,7 @@ module.exports = {
       model: "password",
     },
     {
-      model: "school",
+      model: "schoolID",
     },
   ],
   login: [
