@@ -2,9 +2,9 @@ const ClassroomMongoModel = require("../managers/entities/classroom/Classroom.mo
 
 module.exports = ({ meta, config, managers }) => {
   return async ({ req, res, next }) => {
-    const id = req.body.id;
+    const id = req.body.classroomID;
+    if (!id) return next();
     const classroom = await ClassroomMongoModel.findOne({ _id: id })
-      .populate("schoolID")
       .lean()
       .catch(console.log);
     if (!classroom)
@@ -14,11 +14,11 @@ module.exports = ({ meta, config, managers }) => {
         errors: "classroom is not found",
       });
 
-    if (!req.user.schoolID.equals(classroom.schoolID._id))
+    if (!req.user.schoolID.equals(classroom.schoolID))
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "you don't have access to this classroom",
+        errors: "you are not authorized add student to this classroom.",
       });
     next(classroom);
   };

@@ -95,9 +95,9 @@ module.exports = class User {
     if (result) return { errors: result };
 
     // Creation Logic
-    await this.mongomodels.User.create(user);
+    const createdUser = await this.mongomodels.User.create(user);
     let longToken = this.tokenManager.genLongToken({
-      userId: user._id,
+      userId: createdUser._id,
       user,
     });
 

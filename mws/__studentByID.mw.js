@@ -1,25 +1,27 @@
-const ClassroomMongoModel = require("../managers/entities/classroom/Classroom.mongoModel");
+const StudentMongoModel = require("../managers/entities/student/Student.mongoModel");
 
 module.exports = ({ meta, config, managers }) => {
   return async ({ req, res, next }) => {
     const id = req.body.id;
-    const classroom = await ClassroomMongoModel.findOne({ _id: id })
+    const student = await StudentMongoModel.findOne({ _id: id })
       .populate("schoolID")
+      .populate("classroomID")
       .lean()
       .catch(console.log);
-    if (!classroom)
+    if (!student)
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 400,
-        errors: "classroom is not found",
+        errors: "student is not found",
       });
-
-    if (!req.user.schoolID.equals(classroom.schoolID._id))
+    if (!req.user.schoolID.equals(student.schoolID._id))
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "you don't have access to this classroom",
+        errors: "you don't have authority over this student",
       });
-    next(classroom);
+
+    req.student = student;
+    next(student);
   };
 };
