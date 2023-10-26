@@ -11,14 +11,16 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 400,
-        errors: "classroom is not found",
+        errors: [{ message: "classroom is not found" }],
       });
 
     if (!req.user.schoolID.equals(classroom.schoolID))
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "you are not authorized add student to this classroom.",
+        errors: [
+          { message: "you are not authorized add student to this classroom." },
+        ],
       });
     next(classroom);
   };

@@ -11,14 +11,14 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 400,
-        errors: "classroom is not found",
+        errors: [{ message: "classroom is not found" }],
       });
 
     if (!req.user.schoolID.equals(classroom.schoolID._id))
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "you don't have access to this classroom",
+        errors: [{ message: "you don't have access to this classroom" }],
       });
     next(classroom);
   };

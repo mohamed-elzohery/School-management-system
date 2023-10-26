@@ -10,7 +10,7 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 400,
-        errors: "school is not found",
+        errors: [{ message: "school is not found" }],
       });
     next(school);
   };

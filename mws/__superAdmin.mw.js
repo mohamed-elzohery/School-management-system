@@ -15,7 +15,7 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "unauthorized: token is invalid",
+        errors: [{ message: "unauthorized: token is invalid" }],
       });
     }
     let decodedToken = managers.token.verifyLongToken({
@@ -25,7 +25,7 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "unauthorized operation",
+        errors: [{ message: "unauthorized operation" }],
       });
     }
     let user = await User.findById(decodedToken.userId);
@@ -33,13 +33,13 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "unauthorized operation",
+        errors: [{ message: "unauthorized operation" }],
       });
     if (user.role !== Roles.SUPER_ADMIN)
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 401,
-        errors: "unauthorized operation",
+        errors: [{ message: "unauthorized operation" }],
       });
     next(user);
   };

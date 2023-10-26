@@ -11,7 +11,7 @@ module.exports = ({ meta, config, managers }) => {
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
         code: 400,
-        errors: "user is not found",
+        errors: [{ message: "user is not found" }],
       });
     next(user);
   };
