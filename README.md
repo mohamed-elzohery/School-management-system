@@ -74,7 +74,7 @@ Student Management: School admins can manage student records within their school
 
 ## API Endpoints
 
-[](swagger link)
+[https://school-api-lzib.onrender.com/api-docs/](swagger link)
 
 ## Authentication
 
@@ -98,6 +98,8 @@ If you're interested in contributing to this project, please follow these guidel
 ERD of the system
 
 ![Entity Relationship diagram](https://i.ibb.co/7nZFxzw/Screenshot-from-2023-10-26-23-58-22.png)
+
+Warning: when school is deleted all referred classrooms and admins of this school will be also deleted;
 
 ## Notes
 
