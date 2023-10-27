@@ -94,6 +94,21 @@ module.exports = class User {
     let result = await this.validators.user.createUser(user);
     if (result) return { errors: result };
 
+    const school = await this.mongomodels.School.findOne({ _id: schoolID })
+      .lean()
+      .catch(console.log);
+    if (!school)
+      return {
+        errors: [
+          {
+            message: "no school is found of this schoolID",
+            path: "schholID",
+            label: "schholID",
+            log: "_duplicate",
+          },
+        ],
+      };
+
     // Creation Logic
     const createdUser = await this.mongomodels.User.create(user);
     let longToken = this.tokenManager.genLongToken({

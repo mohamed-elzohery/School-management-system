@@ -38,7 +38,6 @@ module.exports = {
     },
     {
       model: "schoolID",
-      required: true,
     },
   ],
   login: [

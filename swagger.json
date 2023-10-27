@@ -14,6 +14,10 @@
     {
       "name": "User",
       "description": "Operations related to users (admins)"
+    },
+    {
+      "name": "Classroom",
+      "description": "Operations related to classrooms"
     }
   ],
   "securityDefinitions": {
@@ -485,16 +489,7 @@
       "post": {
         "summary": "User login",
         "tags": ["User"],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "Bearer token for authorization",
-            "required": true,
-            "type": "string",
-            "default": "Bearer {{superadmin_token}}"
-          }
-        ],
+
         "requestBody": {
           "description": "User login data",
           "required": true,
@@ -584,16 +579,26 @@
             "required": true,
             "type": "string",
             "default": "Bearer {{superadmin_token}}"
-          },
-          {
-            "name": "id",
-            "in": "query",
-            "description": "ID of the user to retrieve",
-            "required": true,
-            "type": "string",
-            "example": "653bc7192a91381c0705f6eb"
           }
         ],
+        "requestBody": {
+          "description": "get user data by id",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653ac0d6903cbfa3723b890b"
+                  }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success response",
@@ -634,6 +639,597 @@
                           "type": "integer"
                         }
                       }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/getAllUsers": {
+      "get": {
+        "summary": "Get all users",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "example": "moahmed2@01.com"
+                      },
+                      "username": {
+                        "type": "string",
+                        "example": "moahemd"
+                      },
+                      "role": {
+                        "type": "string",
+                        "example": "admin"
+                      },
+                      "schoolID": {
+                        "type": "string",
+                        "example": "653952e2d934076e867bd000"
+                      },
+                      "__v": {
+                        "type": "integer"
+                      },
+                      "id": {
+                        "type": "string",
+                        "example": "653ac0d6903cbfa3723b890b"
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/updateUser": {
+      "put": {
+        "summary": "Update a user",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "requestBody": {
+          "description": "User update data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653bc7192a91381c0705f6eb"
+                  },
+                  "username": {
+                    "type": "string",
+                    "example": "marwan"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "sdasdca@dsc.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "dfsdcds"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User is updated successfully"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/deleteUser": {
+      "delete": {
+        "summary": "Delete a user",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "requestBody": {
+          "description": "User deletion data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653ac0d6903cbfa3723b890b"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User is deleted successfully"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classroom/createClassroom": {
+      "post": {
+        "summary": "Create a classroom",
+        "tags": ["Classroom"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Classroom creation data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Tanta Classroom"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "available"
+                  }
+                },
+                "required": ["title", "status"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string",
+                          "example": "Tanta Classroom"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "schoolID": {
+                          "type": "string",
+                          "example": "653952e2d934076e867bd000"
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "653bd08516f73ce511588b0b"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classroom/getAllClassrooms": {
+      "get": {
+        "summary": "Get all classrooms",
+        "tags": ["Classroom"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "653bd08516f73ce511588b0b"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Tanta Classroom"
+                      },
+                      "status": {
+                        "type": "string",
+                        "example": "available"
+                      },
+                      "schoolID": {
+                        "type": "string",
+                        "example": "653952e2d934076e867bd000"
+                      },
+                      "__v": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classroom/getClassroomById": {
+      "get": {
+        "summary": "Get classroom by id",
+        "tags": ["Classroom"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "653be0badfb89e4d489ebdcd"
+                        },
+                        "title": {
+                          "type": "string",
+                          "example": "Tanta Classroom"
+                        },
+                        "status": {
+                          "type": "string",
+                          "example": "available"
+                        },
+                        "schoolID": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "653bdf8df6ce0da58e28899c"
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "Tanta Old School"
+                            },
+                            "description": {
+                              "type": "string",
+                              "example": "Good Old School for students"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Tanta, Soliman st"
+                            },
+                            "__v": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classroom/updateClassroom": {
+      "put": {
+        "summary": "Update a classroom",
+        "tags": ["Classroom"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Classroom update data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653be0badfb89e4d489ebdcd"
+                  },
+                  "title": {
+                    "type": "string",
+                    "example": "Tanta Classroom"
+                  },
+                  "status": {
+                    "type": "string",
+                    "example": "under-maintenance"
+                  }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "Classroom is updated successfully"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/classroom/deleteClassroom": {
+      "delete": {
+        "summary": "Delete a classroom",
+        "tags": ["Classroom"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Classroom deletion data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653986c54c082afc426b7ed5"
+                  }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Classroom is deleted successfully"
                     }
                   }
                 },

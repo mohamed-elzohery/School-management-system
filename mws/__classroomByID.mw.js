@@ -13,7 +13,8 @@ module.exports = ({ meta, config, managers }) => {
         code: 400,
         errors: [{ message: "classroom is not found" }],
       });
-
+    console.log(classroom.schoolID._id.toString());
+    console.log(req.user.schoolID.toString());
     if (!req.user.schoolID.equals(classroom.schoolID._id))
       return managers.responseDispatcher.dispatch(res, {
         ok: false,
