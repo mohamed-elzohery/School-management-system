@@ -68,10 +68,6 @@ School Management: Superadmins can add, update, and delete schools.
 Classroom Management: School admins can manage classrooms within their respective schools.
 Student Management: School admins can manage student records within their schools.
 
-- By Default system has one super-admin user with username: 'hsn' and password: '12345678'
-- you can change super admin credintial by updating the '.env' file following values: (SUPERADMIN_USERNAME - SUPERADMIN_PASSWORD)
-- there is no another way to create super-admin user.
-
 ## API Endpoints
 
 [Swagger Link](https://school-api-lzib.onrender.com/api-docs/)
