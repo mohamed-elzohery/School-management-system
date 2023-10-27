@@ -74,7 +74,7 @@ Student Management: School admins can manage student records within their school
 
 ## API Endpoints
 
-[https://school-api-lzib.onrender.com/api-docs/](swagger link)
+[Swagger Link](https://school-api-lzib.onrender.com/api-docs/)
 
 ## Authentication
 
