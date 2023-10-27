@@ -105,10 +105,10 @@ We encourage reviewers to try our app in the natural flow of the system.
 
 1. login with the super-admin credentials privided in [Authentication](authentication section).
 2. use the returned token to create a school.
-3. create a system user (admin) and assign it to the created school. see provided [API Endpoints](endpoints);
+3. create a system user (admin) and assign it to the created school. see provided [api-endpoints](API Endpoints).
 4. login with the created user to get the token.
 5. use this admin token to manage classrooms and students of this admin's school.
 
 ## Deployment
 
-See [https://school-api-lzib.onrender.com/api/](live preview)
+See [live preview](https://school-api-lzib.onrender.com/api/)
