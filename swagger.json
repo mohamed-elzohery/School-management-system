@@ -18,6 +18,10 @@
     {
       "name": "Classroom",
       "description": "Operations related to classrooms"
+    },
+    {
+      "name": "Student",
+      "description": "Operations related to classrooms"
     }
   ],
   "securityDefinitions": {
@@ -1230,6 +1234,423 @@
                     "message": {
                       "type": "string",
                       "example": "Classroom is deleted successfully"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/createStudent": {
+      "post": {
+        "summary": "Create a student",
+        "tags": ["Student"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Student creation data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Gameel"
+                  },
+                  "classroomID": {
+                    "type": "string",
+                    "example": "653be2d2365bb723389b6510"
+                  }
+                },
+                "required": ["name", "classroomID"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "student": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "Gameel"
+                        },
+                        "classroomID": {
+                          "type": "string",
+                          "example": "653be2d2365bb723389b6510"
+                        },
+                        "schoolID": {
+                          "type": "string",
+                          "example": "653bdf8df6ce0da58e28899c"
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "653be2f3365bb723389b6516"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/getAllStudents": {
+      "get": {
+        "summary": "Get all students",
+        "tags": ["Student"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "653aa0e3adeca3fad7f21b63"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Samir"
+                      },
+                      "classroomID": {
+                        "type": "string",
+                        "example": "653a9ff4889b4faea024040b"
+                      },
+                      "schoolID": {
+                        "type": "string",
+                        "example": "65397c5b5ee0d72b011b7e75"
+                      },
+                      "__v": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/getStudentById": {
+      "get": {
+        "summary": "Get a student by ID",
+        "tags": ["Student"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Student ID",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653be2aa365bb723389b650d"
+                  }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "student": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "653be3ef5fee9e08c7a4fbb1"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "Gameel"
+                        },
+                        "classroomID": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "653be2d2365bb723389b6510"
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "Tanta Classroom"
+                            },
+                            "status": {
+                              "type": "string",
+                              "example": "available"
+                            },
+                            "schoolID": {
+                              "type": "string",
+                              "example": "653bdf8df6ce0da58e28899c"
+                            },
+                            "__v": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "schoolID": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "653bdf8df6ce0da58e28899c"
+                            },
+                            "title": {
+                              "type": "string",
+                              "example": "Tanta Old School"
+                            },
+                            "description": {
+                              "type": "string",
+                              "example": "Good Old School for students"
+                            },
+                            "address": {
+                              "type": "string",
+                              "example": "Tanta, Soliman st"
+                            },
+                            "__v": {
+                              "type": "integer"
+                            }
+                          }
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/updateStudent": {
+      "put": {
+        "summary": "Update a student",
+        "tags": ["Student"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Student update data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653be0badfb89e4d489ebdcd"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Mohsen"
+                  },
+                  "classroomID": {
+                    "type": "string",
+                    "example": "653be2d2365bb723389b6510"
+                  }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "Student is updated successfully"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/deleteStudent": {
+      "delete": {
+        "summary": "Delete a Student",
+        "tags": ["Student"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer admin_token"
+          }
+        ],
+        "requestBody": {
+          "description": "Student deletion data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653986c54c082afc426b7ed5"
+                  }
+                },
+                "required": ["id"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Student is deleted successfully"
                     }
                   }
                 },
