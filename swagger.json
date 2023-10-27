@@ -1,0 +1,656 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "School Management System API",
+    "description": "API for managing school system"
+  },
+
+  "tags": [
+    {
+      "name": "School",
+      "description": "Operations related to schools"
+    },
+    {
+      "name": "User",
+      "description": "Operations related to users (admins)"
+    }
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "Bearer",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "basePath": "/",
+  "host": "school-api-lzib.onrender.com",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "api/school/createSchool": {
+      "post": {
+        "tags": ["School"],
+        "summary": "Create a school",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{super_admin_token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "school": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "address": {
+                          "type": "string"
+                        },
+                        "_id": {
+                          "type": "string"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "headers": [
+          {
+            "name": "Authorization",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{super_admin_token}}"
+          }
+        ],
+        "requestBody": {
+          "description": "School data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Zefta Old School"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Good Old School for students"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "Zefta, Soliman st"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "api/school/getSchoolById": {
+      "get": {
+        "tags": ["School"],
+        "summary": "Get a school by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of the school to retrieve",
+            "required": true,
+            "type": "string",
+            "example": "653bc2442a91381c0705f6da"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "school": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "653bc2442a91381c0705f6da"
+                        },
+                        "title": {
+                          "type": "string",
+                          "example": "Tanta Old School"
+                        },
+                        "description": {
+                          "type": "string",
+                          "example": "Good Old School for students"
+                        },
+                        "address": {
+                          "type": "string",
+                          "example": "Tanta, Soliman st"
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/school/getAllSchools": {
+      "get": {
+        "tags": ["School"],
+        "summary": "Get all schools",
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "653bc0a22a91381c0705f6d5"
+                      },
+                      "title": {
+                        "type": "string",
+                        "example": "Tanta Old School"
+                      },
+                      "description": {
+                        "type": "string",
+                        "example": "Good Old School for students"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "Tanta, Soliman st"
+                      },
+                      "__v": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/school/updateSchool": {
+      "put": {
+        "tags": ["School"],
+        "summary": "Update a school",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "string",
+                  "example": "School is updated successfully"
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "School update data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653bc2442a91381c0705f6da"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/school/deleteSchool": {
+      "delete": {
+        "tags": ["School"],
+        "summary": "Delete a school",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "School is deleted successfully"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "School deletion data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "example": "653bc2442a91381c0705f6da"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/createUser": {
+      "post": {
+        "summary": "Create a user",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "requestBody": {
+          "description": "User creation data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "moahemd"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "moahmed@01"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "moahmed@01.com"
+                  },
+                  "schoolID": {
+                    "type": "string",
+                    "example": "653952e2d934076e867bd000"
+                  }
+                },
+                "required": ["username", "password", "email", "schoolID"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string",
+                          "example": "moahemd"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "moahmed1@01.com"
+                        }
+                      }
+                    },
+                    "longToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTNiYzcxOTJhOTEzODFjMD70wWf6bc72plZzZ"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/login": {
+      "post": {
+        "summary": "User login",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          }
+        ],
+        "requestBody": {
+          "description": "User login data",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string",
+                    "example": "admin"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "admin"
+                  }
+                },
+                "required": ["password", "email"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "moahmed1@01.com"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "admin"
+                        },
+                        "_id": {
+                          "type": "string",
+                          "example": "653bc7192a91381c0705f6eb"
+                        },
+                        "schoolID": {
+                          "type": "string",
+                          "example": "653952e2d934076e867bd000"
+                        }
+                      }
+                    },
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTNiYzcxOTJhOTEzODFjMDcwNWY2ZWIiLCJpYXQiOjE2OTg0MTY1NjIsImV4cCI6MTc5MzA4OTM2Mn0.BIoLPFFGg4Tnbq8CMxeLv3-yxZ5K3sA2Gw3YnrRTxpw"
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/user/getUserById": {
+      "get": {
+        "summary": "Get a user by ID",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token for authorization",
+            "required": true,
+            "type": "string",
+            "default": "Bearer {{superadmin_token}}"
+          },
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID of the user to retrieve",
+            "required": true,
+            "type": "string",
+            "example": "653bc7192a91381c0705f6eb"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ok": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "653bc7192a91381c0705f6eb"
+                        },
+                        "email": {
+                          "type": "string",
+                          "example": "moahmed1@01.com"
+                        },
+                        "username": {
+                          "type": "string",
+                          "example": "moahemd"
+                        },
+                        "role": {
+                          "type": "string",
+                          "example": "admin"
+                        },
+                        "schoolID": {
+                          "type": "string",
+                          "example": null
+                        },
+                        "__v": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -164,7 +164,7 @@ module.exports = class User {
 
   async getAllUsers({ __superAdmin }) {
     return this.mongomodels.User.find(
-      { role: Roles.schoolID_ADMIN },
+      { role: Roles.SCHOOL_ADMIN },
       { password: 0 }
     );
   }
