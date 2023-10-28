@@ -48,10 +48,10 @@ Before you begin, make sure you have the following software and tools installed:
 cd School-management-system/
 ```
 
-3. copy the '.env.exmaple' to be '.env'. populate with real values for each.
+3. copy the '.sample.env' to be '.env'. populate with real values for each.
 
 ```bash
-cp .env.example .env
+cp .sample.env
 ```
 
 4. start the app.
